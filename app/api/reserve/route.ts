@@ -29,7 +29,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Vérifie que le créneau existe et est disponible
     const { data: slot, error: slotError } = await supabase
       .from("availability")
       .select("id, status, available_date, available_time")
@@ -50,7 +49,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Enregistre la réservation
     const { error: reservationError } = await supabase
       .from("reservations")
       .insert({
@@ -66,7 +64,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Marque le créneau comme réservé
     const { error: updateError } = await supabase
       .from("availability")
       .update({ status: "reserved" })
